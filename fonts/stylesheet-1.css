@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'UTM Avo';
+    src: url('UTMAvoBold.woff2') format('woff2'),
+        url('UTMAvoBold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'iCiel Fester Semi-Condensed';
+    src: url('iCielFesterSemiCondensed-Bold.woff2') format('woff2'),
+        url('iCielFesterSemiCondensed-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
