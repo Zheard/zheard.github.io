@@ -55,7 +55,7 @@ article#bot4
 	position: absolute;
 	width: 100%;
 	max-height: 500px;
-	top: 250px;
+	top: 0px;
 	right: 0;
 	left: 0;
 	bottom: 0;
@@ -67,8 +67,9 @@ article#bot4
 						". . boton boton . ."
 						". . . mensaje . ."
 						". . . . . ."
-						". . . . . .";align-content: center;
+						". . . . . ."
 	}
+
 
 .contenedor > h2
 	{
@@ -140,5 +141,4 @@ article#bot4
 									". . . . mensaje . . ."
 									". . . . . . . ."
 									". . . . . . . .";
-			}
-	}
+			}}
