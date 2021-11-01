@@ -71,16 +71,16 @@ article#bot4
 	}
 
 
-.contenedor > h2
+.contenedor > h3
 	{
-		 font-size: 50px;
+		 font-size: 35px;
 		 grid-area: titulo;
 		 color: white;
 		 align-self: center;
 		 text-align:center;
 	}
 
-.contenedor > input
+.contenedor > button
 	{
 		grid-area: boton;
 		font-size: 30px;
@@ -92,7 +92,7 @@ article#bot4
 	    box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.2);
 	}
 
-.contenedor > input:hover
+.contenedor > button:hover
 	{
 		background-color: rgba(32,124,17,1);
 	}
