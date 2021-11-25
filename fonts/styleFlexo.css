@@ -1,0 +1,10 @@
+
+@font-face {
+    font-family: 'Flexo Demi';
+    src: url('Flexo-Demi.woff2') format('woff2'),
+        url('Flexo-Demi.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
