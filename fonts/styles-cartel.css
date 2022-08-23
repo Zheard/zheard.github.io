@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'UTM-American-Sans';
+    src: url('UTMAmericanSans.woff2') format('woff2'),
+        url('UTMAmericanSans.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SVN-Lobster';
+    src: url('SVN-Lobster.woff2') format('woff2'),
+        url('SVN-Lobster.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'UTM-Kabel-Zheard';
+    src: url('UTMKabelKT.woff2') format('woff2'),
+        url('UTMKabelKT.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
