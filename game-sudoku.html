@@ -358,7 +358,7 @@ $(document).ready(function () {
     let expertPair = [[expert1, expert1Solved], [expert2, expert2Solved], [expert3, expert3Solved]];
 
     // On user confirmation: Restart timer, start new game based on selected difficulty and increment grid cycle.
-    $("#new-game").click(newGameStart);
+    $("#instructions-btn").click(newGameStart);
     function newGameStart() {
         if (confirm("Seguro que deseas iniciar un nuevo juego?. Tu progreso actual se va a perder.") === true) {
             newGame();
