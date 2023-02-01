@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Resuelve este Sudoku - by Zheard.Net" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku - Zheard.Net</title>
+    <script src="https://kit.fontawesome.com/69b2179d00.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="instructions-overlay">
+        <div class="instructions">
+            <h1>Welcome to Sudoku! <i class="far fa-times-circle"></i></h1>
+            <p> The game rules are simple. Each row, column and square contain 9 cells and need to have numbers from 1
+                to 9. This means that numbers should not be repeated. The game is based on logic so no guessing is
+                required.</p>
+            <p>
+                There are 3 difficulty levels available. From easier ones suited for beginners to more challenging ones
+                for expert Sudoku players. If you get stuck, use the hint button which gives you the answer to a random
+                cell.
+            </p>
+        </div>
+    </div>
+    <div class="scale">
+        <div>
+         
+            <table class="intro">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="bottom">
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="bottom">
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="right"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class="controls intro">
+            <div class="first-row">
+                <h1 class="difficulty-headline">Difficulty <i class="fas fa-sort-down"></i><i class="fas fa-minus"></i>
+                </h1>
+                <div id="timer">00:00</div>
+            </div>
+
+            <div class="difficulty">
+                <span>Intermediate</span>
+                <input class="slider" type="range" min="1" max="3">
+                <span class="margin">Casual</span>
+                <span>Expert</span>
+            </div>
+            <div id="numpad">
+                <span class="num">1</span>
+                <span class="num">2</span>
+                <span class="num">3</span>
+                <span class="num">4</span>
+                <span class="num">5</span>
+                <span class="num">6</span>
+                <span class="num">7</span>
+                <span class="num">8</span>
+                <span class="num">9</span>
+            </div>
+            <div class="buttons">
+                <button class="btn" id="new-game">Nuevo Juego</button>
+                <button class="btn" id="hint">Pista</button>
+                           </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous"></script>
+    <script>
+    /* Premade grids */
+let beginner1 = [6, 5, 9, "", 1, "", 2, 8, "", 1, "", "", "", 5, "", "", 3, "", 2, "", "", 8, "", "", "", 1, "", "", "", "", 1, 3, 5, "", 7, "", 8, "", "", 9, "", "", "", "", 2, "", "", 3, "", 7, 8, 6, 4, "", 3, "", 2, "", "", 9, "", "", 4, "", "", "", "", "", 1, 8, "", "", "", "", 8, 7, 6, "", "", "", ""];
+let beginner2 = ["", 6, "", "", 7, 2, "", "", 1, 8, "", "", 1, 3, 6, 5, "", "", "", "", 3, 4, "", "", "", "", "", 2, "", "", 6, 5, "", "", 3, "", "", "", 6, "", "", 7, "", 1, "", "", "", "", 2, "", "", 8, 6, 4, 9, "", 7, "", 8, 4, "", "", "", "", "", 8, "", "", 9, "", 7, "", "", "", "", 7, 2, 1, "", 8, 3];
+let beginner3 = ["", "", "", "", "", "", 9, 2, "", 5, 4, "", "", 3, "", 1, "", "", "", "", 8, "", 5, 7, "", "", 4, "", 5, "", "", 8, "", "", "", 3, 9, "", 3, "", 4, 6, 8, "", "", 1, "", "", 3, "", "", "", 4, "", "", 7, "", 4, "", "", "", "", "", 3, 6, 1, "", 7, 9, "", 8, "", "", "", "", "", 6, "", "", 3, 7];
+
+let intermediate1 = ["", "", "", "", "", "", "", "", 2, "", "", "", "", "", "", 9, 4, "", "", "", 3, "", "", "", "", "", 5, "", 9, 2, 3, "", 5, "", 7, 4, 8, 4, "", "", "", "", "", "", "", "", 6, 7, "", 9, 8, "", "", "", "", "", "", 7, "", 6, "", "", "", "", "", "", 9, "", "", "", 2, "", 4, "", 8, 5, "", "", 3, 6, ""];
+let intermediate2 = [4, "", 6, "", "", "", "", 5, 9, "", "", "", "", 4, "", 2, "", "", "", 7, "", "", "", "", "", "", "", "", "", 5, 9, 1, "", "", 6, "", "", 1, 3, "", "", "", 8, 9, 4, "", "", "", 2, "", "", "", "", 1, 5, "", 8, "", "", "", "", "", "", "", "", "", "", 3, "", "", "", 8, "", 4, "", "", 6, "", 1, "", ""];
+let intermediate3 = ["", "", "", "", "", 8, "", 9, "", "", "", 3, "", "", 1, "", "", "", 2, "", "", "", "", 7, 6, "", "", "", "", "", "", 2, "", "", "", "", "", 9, 4, "", 8, "", 2, "", "", 7, 1, "", "", 4, "", 9, "", 5, 1, "", "", 9, "", "", 5, 3, "", 5, 7, "", "", "", "", 8, 4, "", "", "", "", "", "", 6, "", 2, 1];
+
+let expert1 = [9, 5, "", "", "", 1, "", "", 2, 6, 3, "", "", "", "", 1, "", "", "", "", 8, "", 6, "", "", "", 7, "", "", "", "", "", "", 5, "", "", "", 6, 1, 7, "", 9, "", "", "", "", "", 2, "", 4, "", "", "", 8, "", 9, "", "", "", "", "", "", 5, "", 1, "", "", 5, 6, 4, 8, "", "", 8, "", "", 1, 7, "", "", 6];
+let expert2 = ["", 3, 5, "", "", "", "", 7, 6, 6, 4, "", 5, "", 7, "", 1, "", 7, "", "", "", "", "", 4, "", "", 8, "", 3, "", "", 6, "", "", 4, "", 9, "", 3, 4, "", 2, "", "", 4, "", "", 9, "", 1, "", 3, 7, "", "", 4, 2, "", "", "", "", 5, 5, "", "", "", "", "", 3, "", 1, 3, "", "", 6, "", "", "", 4, ""];
+let expert3 = ["", 2, "", 7, 6, "", "", "", 3, "", "", "", "", "", "", 2, "", "", 9, "", 6, "", 2, "", "", 4, "", 8, "", 7, 4, "", "", "", 1, "", "", "", "", 1, "", "", "", "", "", 1, 9, "", 5, 3, "", 6, "", 8, 4, 8, 9, "", "", 1, "", 3, 6, "", "", "", "", 5, 9, "", "", "", 2, 1, "", "", "", "", "", 8, 9];
+
+/* Premade grids solved */
+let beginner1Solved = [6, 5, 9, 3, 1, 4, 2, 8, 7, 1, 8, 7, 6, 5, 2, 4, 3, 9, 2, 3, 4, 8, 9, 7, 5, 1, 6, 4, 2, 6, 1, 3, 5, 9, 7, 8, 8, 7, 1, 9, 4, 6, 3, 5, 2, 5, 9, 3, 2, 7, 8, 6, 4, 1, 3, 1, 2, 5, 8, 9, 7, 6, 4, 7, 6, 5, 4, 2, 1, 8, 9, 3, 9, 4, 8, 7, 6, 3, 1, 2, 5];
+let beginner2Solved = [4, 6, 5, 8, 7, 2, 3, 9, 1, 8, 9, 2, 1, 3, 6, 5, 4, 7, 7, 1, 3, 4, 9, 5, 6, 2, 8, 2, 4, 1, 6, 5, 8, 7, 3, 9, 3, 8, 6, 9, 4, 7, 2, 1, 5, 5, 7, 9, 2, 1, 3, 8, 6, 4, 9, 2, 7, 3, 8, 4, 1, 5, 6, 1, 3, 8, 5, 6, 9, 4, 7, 2, 6, 5, 4, 7, 2, 1, 9, 8, 3];
+let beginner3Solved = [7, 3, 6, 8, 1, 4, 9, 2, 5, 5, 4, 9, 6, 3, 2, 1, 7, 8, 2, 1, 8, 9, 5, 7, 3, 6, 4, 6, 5, 4, 2, 8, 1, 7, 9, 3, 9, 2, 3, 7, 4, 6, 8, 5, 1, 1, 8, 7, 3, 9, 5, 2, 4, 6, 8, 7, 5, 4, 2, 3, 6, 1, 9, 3, 6, 1, 5, 7, 9, 4, 8, 2, 4, 9, 2, 1, 6, 8, 5, 3, 7];
+
+let intermediate1Solved = [6, 8, 4, 1, 5, 9, 7, 3, 2, 7, 5, 1, 8, 3, 2, 9, 4, 6, 9, 2, 3, 6, 7, 4, 1, 8, 5, 1, 9, 2, 3, 6, 5, 8, 7, 4, 8, 4, 5, 2, 1, 7, 6, 9, 3, 3, 6, 7, 4, 9, 8, 2, 5, 1, 2, 3, 9, 7, 4, 6, 5, 1, 8, 5, 1, 6, 9, 8, 3, 4, 2, 7, 4, 7, 8, 5, 2, 1, 3, 6, 9];
+let intermediate2Solved = [4, 3, 6, 1, 2, 8, 7, 5, 9, 9, 5, 1, 7, 4, 6, 2, 8, 3, 8, 7, 2, 3, 5, 9, 4, 1, 6, 7, 8, 5, 9, 1, 4, 3, 6, 2, 2, 1, 3, 6, 7, 5, 8, 9, 4, 6, 9, 4, 2, 8, 3, 5, 7, 1, 5, 2, 8, 4, 9, 1, 6, 3, 7, 1, 6, 7, 5, 3, 2, 9, 4, 8, 3, 4, 9, 8, 6, 7, 1, 2, 5];
+let intermediate3Solved = [6, 4, 7, 5, 3, 8, 1, 9, 2, 9, 5, 3, 2, 6, 1, 4, 7, 8, 2, 8, 1, 4, 9, 7, 6, 5, 3, 8, 6, 5, 7, 2, 9, 3, 1, 4, 3, 9, 4, 1, 8, 5, 2, 6, 7, 7, 1, 2, 6, 4, 3, 9, 8, 5, 1, 2, 8, 9, 7, 4, 5, 3, 6, 5, 7, 6, 3, 1, 2, 8, 4, 9, 4, 3, 9, 8, 5, 6, 7, 2, 1];
+
+let expert1Solved = [9, 5, 4, 3, 7, 1, 8, 6, 2, 6, 3, 7, 8, 9, 2, 1, 5, 4, 1, 2, 8, 5, 6, 4, 9, 3, 7, 8, 4, 9, 6, 2, 3, 5, 7, 1, 5, 6, 1, 7, 8, 9, 2, 4, 3, 3, 7, 2, 1, 4, 5, 6, 9, 8, 2, 9, 6, 4, 3, 8, 7, 1, 5, 7, 1, 3, 2, 5, 6, 4, 8, 9, 4, 8, 5, 9, 1, 7, 3, 2, 6];
+let expert2Solved = [2, 3, 5, 1, 9, 4, 8, 7, 6, 6, 4, 8, 5, 3, 7, 9, 1, 2, 7, 1, 9, 8, 6, 2, 4, 5, 3, 8, 5, 3, 7, 2, 6, 1, 9, 4, 1, 9, 7, 3, 4, 5, 2, 6, 8, 4, 6, 2, 9, 8, 1, 5, 3, 7, 9, 7, 4, 2, 1, 3, 6, 8, 5, 5, 8, 6, 4, 7, 9, 3, 2, 1, 3, 2, 1, 6, 5, 8, 7, 4, 9];
+let expert3Solved = [5, 2, 1, 7, 6, 4, 8, 9, 3, 3, 4, 8, 9, 1, 5, 2, 6, 7, 9, 7, 6, 3, 2, 8, 1, 4, 5, 8, 5, 7, 4, 9, 6, 3, 1, 2, 6, 3, 2, 1, 8, 7, 9, 5, 4, 1, 9, 4, 5, 3, 2, 6, 7, 8, 4, 8, 9, 2, 7, 1, 5, 3, 6, 7, 6, 3, 8, 5, 9, 4, 2, 1, 2, 1, 5, 6, 4, 3, 7, 8, 9];
+
+$(document).ready(function () {
+
+    /* Keep table responsive on screens less than 801px.
+    (Bigger screens have a fixed table width) */
+    $("table").height($("table").width());
+    $("td").height($("table").width() / 9);
+    $("td").width($("table").width() / 9);
+    window.addEventListener("resize", resizeTable);
+    function resizeTable() {
+        $("table").height($("table").width());
+        $("td").height($("table").width() / 9);
+        $("td").width($("table").width() / 9);
+    }
+
+    // Transfer all cells to new array to manipulate it.
+    let cellArrayItems = document.getElementsByTagName("td");
+    let cellArray = Object.values(cellArrayItems);
+
+    // Enable input on all table cells
+    $("td").attr("contenteditable", "true");
+
+    // Add a key down function on each cell. If entered key is a valid number, input and check it.
+    // Otherwise do not input it.
+    $("td").keydown(isNum);
+    function isNum() {
+        let whichCell = this;
+        if (/[1-9]/.test(event.key) === true) {
+            $(this).text(event.key);
+            enteredValueCheck(whichCell, event.key);
+        } else {
+            $(whichCell).attr("contenteditable", "false");
+            $(whichCell).attr("contenteditable", "true");
+            setTimeout(function () {
+                $(whichCell).text("");
+                $(whichCell).focus();
+            }, 10);
+        }
+    }
+
+    // Add a click function on each cell. Push the last selected cell into a variable.
+    $("td").click(selectedCell);
+    let lastPressed;
+    function selectedCell() {
+        $(lastPressed).removeClass("focused");
+        $(this).focus();
+        lastPressed = this;
+        disableMobile();
+    }
+
+    //  Disable mobile keyboard from popping up on touch screens.
+    let isTouch = matchMedia("(pointer:coarse)").matches;
+    function disableMobile() {
+        if (isTouch === true && $(lastPressed).text() === "") {
+            $(lastPressed).attr("contenteditable", "false");
+            $(lastPressed).addClass("focused");
+        }
+    }
+
+    // Enter the pressed number on numpad into the last selected cell.
+    $(".num").click(numPad);
+    function numPad() {
+        if ($(lastPressed).text() === "") {
+            lastPressed.innerText = this.innerText;
+            let lastSelectedNum = this.innerText;
+            enteredValueCheck(lastPressed, lastSelectedNum);
+        }
+    }
+
+    // Game timer
+    let intervalID;
+    function interval() {
+        $("#timer").text("00:00");
+        let seconds = 0;
+        let minutes = 0;
+        intervalID = setInterval(function () {
+            if (seconds < 10) {
+                if (minutes === 0) {
+                    $("#timer").text(`00:0${seconds}`);
+                } else if (minutes < 10) {
+                    $("#timer").text(`0${minutes}:0${seconds}`);
+                } else {
+                    $("#timer").text(`${minutes}:0${seconds}`);
+                }
+            } else if (seconds >= 10 && seconds < 60) {
+                if (minutes === 0) {
+                    $("#timer").text(`00:${seconds}`);
+                } else if (minutes < 10) {
+                    $("#timer").text(`0${minutes}:${seconds}`);
+                } else {
+                    $("#timer").text(`${minutes}:${seconds}`);
+                }
+            } else if (seconds === 60) {
+                minutes++;
+                seconds = 0;
+                if (minutes < 10) {
+                    $("#timer").text(`0${minutes}:00`);
+                } else {
+                    $("#timer").text(`${minutes}:00`);
+                }
+            }
+            seconds++;
+        }, 1000);
+    }
+
+    // Check if grid is full.
+    function isFull() {
+        let isGridFull = [];
+        for (let i = 0; i < cellArray.length; i++) {
+            isGridFull.push(cellArray[i].innerText);
+        }
+        if (isGridFull.includes("")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    // Change range value on description click. Start new game on user confirmation.
+    let rangeValue = document.getElementsByTagName("input")[0];
+    $(".difficulty span").click(function () {
+        if (this.innerText === "Casual") {
+            if (confirm("Seguro que deseas cambiar de dificultad?. Tu progreso actual se va a perder.") === true) {
+                rangeValue.value = "1";
+                newGame();
+            }
+        } else if (this.innerText === "Intermediate") {
+            if (confirm("Seguro que deseas cambiar de dificultad?. Tu progreso actual se va a perder.") === true) {
+                rangeValue.value = "2";
+                newGame();
+            }
+        } else if (this.innerText === "Expert") {
+            if (confirm("Seguro que deseas cambiar de dificultad?. Tu progreso actual se va a perder.") === true) {
+                rangeValue.value = "3";
+                newGame();
+            }
+        }
+    });
+
+    // Toggle difficulty slider visibility.
+    $(".difficulty-headline").click(show);
+    function show() {
+        $(".difficulty-headline").unbind("click");
+        $(".fa-sort-down").toggle(400);
+        $(".fa-minus").toggle(400);
+        if ($(".fa-minus").css("display") === "block") {
+            $(".fa-minus").css("display", "inline");
+        }
+        $(".difficulty").slideToggle(400, function () {
+            $(".difficulty-headline").click(show);
+        });
+    }
+
+    // Start new game on range value change. Revert value if cancelled.
+    let prevRangeVal = 1;
+    $("input").on("input", rangeChanged);
+    function rangeChanged() {
+        newGameStart();
+    }
+
+    // Keep track of selected difficulty and grid cycle. Pair grids with solutions.
+    let currentGrid;
+    let whichSolution;
+    let whichBeginner = 1;
+    let whichIntermediate = 0;
+    let whichExpert = 0;
+    let beginnerPair = [[beginner1, beginner1Solved], [beginner2, beginner2Solved], [beginner3, beginner3Solved]];
+    let intermediatePair = [[intermediate1, intermediate1Solved], [intermediate2, intermediate2Solved], [intermediate3, intermediate3Solved]];
+    let expertPair = [[expert1, expert1Solved], [expert2, expert2Solved], [expert3, expert3Solved]];
+
+    // On user confirmation: Restart timer, start new game based on selected difficulty and increment grid cycle.
+    $("#new-game").click(newGameStart);
+    function newGameStart() {
+        if (confirm("Seguro que deseas iniciar un nuevo juego?. Tu progreso actual se va a perder.") === true) {
+            newGame();
+        } else {
+            setTimeout(function () {
+                rangeValue.value = prevRangeVal;
+            }, 10);
+        }
+    }
+    function newGame() {
+        prevRangeVal = rangeValue.value;
+        clearInterval(intervalID);
+        interval();
+        currentGrid = document.getElementsByTagName("input")[0].value;
+        $("td").text("");
+        $("td").attr("contenteditable", "true");
+        gridTemplate(currentGrid);
+    }
+    function gridTemplate(cGridParam) {
+        if (cGridParam === "1") {
+            if (whichBeginner === 3) {
+                whichBeginner = 0;
+            }
+            currentGrid = beginnerPair[whichBeginner][0];
+            whichSolution = beginnerPair[whichBeginner][1];
+            whichBeginner++;
+        } else if (cGridParam === "2") {
+            if (whichIntermediate === 3) {
+                whichIntermediate = 0;
+            }
+            currentGrid = intermediatePair[whichIntermediate][0];
+            whichSolution = intermediatePair[whichIntermediate][1];
+            whichIntermediate++;
+        } else if (cGridParam === "3") {
+            if (whichExpert === 3) {
+                whichExpert = 0;
+            }
+            currentGrid = expertPair[whichExpert][0];
+            whichSolution = expertPair[whichExpert][1];
+            whichExpert++;
+        }
+        for (let i = 0; i < 81; i++) {
+            if (typeof currentGrid[i] === "number") {
+                cellArray[i].innerText = currentGrid[i];
+                $(cellArray[i]).attr("contenteditable", "false");
+            }
+        }
+    }
+
+    // When opening the website start a new game with animations.
+    function firstNewGame() {
+        currentGrid = beginner1;
+        whichSolution = beginner1Solved;
+        rangeValue.value = "1";
+        let nextLetter = 0;
+        setTimeout(function () {
+            for (let i = 0; i < cellArray.length; i++) {
+                if (typeof beginner1[i] === "number") {
+                    nextLetter += 1;
+                    showLetters(i, nextLetter);
+                }
+            }
+        }, 400);
+        setTimeout(function () {
+            $("td").removeClass("intro-letter");
+            if (isTouch === true) {
+                $("td").attr("contenteditable", "false");
+            }
+        }, 2500);
+        interval();
+    }
+    function showLetters(i, nextLetter) {
+        setTimeout(function () {
+            $(cellArray[i]).addClass("intro-letter");
+            cellArray[i].innerText = beginner1[i];
+            $(cellArray[i]).attr("contenteditable", "false");
+        }, 50 * nextLetter);
+    }
+
+    // Fill out a random cell.
+    $("#hint").click(hint);
+    function hint() {
+        let pickACell = Math.floor(Math.random() * 81);
+        let pickedCell = cellArray[pickACell];
+        if ($(pickedCell).text() === "") {
+            $(pickedCell).text(whichSolution[pickACell]);
+            enteredValueCheck(pickedCell, whichSolution[pickACell].toString());
+        } else if (isFull() === false) {
+            hint();
+        }
+    }
+
+    //Open and close instructions window. 
+    $("#instructions-btn").click(showRules);
+    $(".instructions-overlay").click(hideRules);
+    function showRules() {
+        $("#instructions-btn").unbind("click");
+        $(".instructions-overlay").unbind("click");
+        $("body").children().addClass("blur");
+        $(".instructions-overlay").slideToggle(450, function () {
+            $("#instructions-btn").click(showRules);
+            $(".instructions-overlay").click(hideRules);
+        });
+    }
+    function hideRules() {
+        $(".instructions-overlay").unbind("click");
+        $("#instructions-btn").unbind("click");
+        $("body").children().removeClass("blur");
+        $(".instructions-overlay").slideToggle(450, function () {
+            $(".instructions-overlay").click(hideRules);
+            $("#instructions-btn").click(showRules);
+        });
+    }
+
+    // Check entered value.
+    function enteredValueCheck(whichCell, whichNum) {
+        $(whichCell).attr("contenteditable", "false");
+        let whatsFocused = document.activeElement;
+        // Get cells in the same column.
+        let sameCol = [];
+        let sameColText = [];
+        let reduceToSameCol = cellArray.indexOf(whichCell);
+        if (reduceToSameCol > 8) {
+            let fitsHowMany = Math.floor(reduceToSameCol / 9);
+            reduceToSameCol = reduceToSameCol - (9 * fitsHowMany);
+        }
+        for (let j = reduceToSameCol; j < 81; j += 9) {
+            sameCol.push(cellArray[j]);
+            sameColText.push(cellArray[j].innerText);
+        }
+        let reduceToSameRow = cellArray.indexOf(sameCol[0]);// Belongs to same row part
+        let removeACell = sameCol.indexOf(whichCell);
+        sameCol.splice(removeACell, 1);
+        sameColText.splice(removeACell, 1);
+
+        // Get cells in the same row.
+        let sameRow = [];
+        let sameRowText = [];
+        let firstRowIndex = cellArray.indexOf(whichCell) - reduceToSameRow;
+        for (let nineTimes = 0; nineTimes < 9; nineTimes++) {
+            if (nineTimes === reduceToSameRow) {
+                continue;
+            } else {
+                sameRow.push(cellArray[firstRowIndex + nineTimes]);
+                sameRowText.push(cellArray[firstRowIndex + nineTimes].innerText);
+            }
+        }
+
+        // Get cells in the same box
+        let whichBox = [];
+        let sameBox = [];
+        let sameBoxText = [];
+        let boxes = [[0, 1, 2, 9, 10, 11, 18, 19, 20], [3, 4, 5, 12, 13, 14, 21, 22, 23], [6, 7, 8, 15, 16, 17, 24, 25, 26], [27, 28, 29, 36, 37, 38, 45, 46, 47], [30, 31, 32, 39, 40, 41, 48, 49, 50], [33, 34, 35, 42, 43, 44, 51, 52, 53], [54, 55, 56, 63, 64, 65, 72, 73, 74], [57, 58, 59, 66, 67, 68, 75, 76, 77], [60, 61, 62, 69, 70, 71, 78, 79, 80]];
+        for (let b = 0; b < 9; b++) {
+            if ((boxes[b]).includes(cellArray.indexOf(whichCell)) === true) {
+                whichBox = whichBox.concat(boxes[b]);
+                let removeSelf = whichBox.indexOf(cellArray.indexOf(whichCell));
+                whichBox.splice(removeSelf, 1);
+                break;
+            }
+        }
+        for (let b1 = 0; b1 < 8; b1++) {
+            sameBox.push(cellArray[whichBox[b1]]);
+            sameBoxText.push((cellArray[whichBox[b1]]).innerText);
+        }
+
+        // Executes if inputed cell is wrong in the loop below.
+        function itsWrong(p1, i) {
+            $(p1[i]).attr("contenteditable", "false");
+            $(p1[i]).addClass("wrong");
+            $(whichCell).addClass("wrong");
+            setTimeout(function () {
+                $(p1[i]).removeClass("wrong");
+                $(whichCell).removeClass("wrong");
+                $(whichCell).attr("contenteditable", "true");
+                $(whichCell).text("");
+                disableMobile();
+                if (document.activeElement === whatsFocused && isTouch === false) {
+                    whichCell.focus();
+                }
+            }, 600);
+        }
+
+        // If a row, column or square is filled, lights up all included cells with delay.
+        function time(loopNum, which) {
+            setTimeout(function () {
+                $(which[loopNum]).addClass("light-up");
+                setTimeout(function () {
+                    $(which[loopNum]).removeClass("light-up");
+                }, 600);
+            }, 50 * (loopNum + 1));
+        }
+
+        // If selected cell input is wrong, signal why and delete it.
+        // Otherwise mark it as correct.
+        let actualValue = whichSolution[cellArray.indexOf(whichCell)].toString();
+        for (let i = 0; i < 8; i++) {
+            if ($(sameBox[i]).text() === whichNum) {
+                itsWrong(sameBox, i);
+                break;
+            } else if ($(sameCol[i]).text() === whichNum) {
+                itsWrong(sameCol, i);
+                break;
+            } else if ($(sameRow[i]).text() === whichNum) {
+                itsWrong(sameRow, i);
+                break;
+            } else if (whichNum !== actualValue) {
+                $(whichCell).addClass("wrong");
+                setTimeout(function () {
+                    $(whichCell).removeClass("wrong");
+                    $(whichCell).attr("contenteditable", "true");
+                    $(whichCell).text("");
+                    disableMobile();
+                    if (document.activeElement === whatsFocused && isTouch === false) {
+                        whichCell.focus();
+                    }
+                }, 600);
+            } else if (i === 7) {
+                if (sameRowText.includes("") === false) {
+                    for (let k = 0; k < 8; k++) {
+                        time(k, sameRow);
+                    }
+                }
+                if (sameColText.includes("") === false) {
+                    for (let h = 0; h < 8; h++) {
+                        time(h, sameCol);
+                    }
+                }
+                if (sameBoxText.includes("") === false) {
+                    for (let j = 0; j < 8; j++) {
+                        time(j, sameBox);
+                    }
+                }
+                $(whichCell).addClass("correct");
+                setTimeout(function () {
+                    $(whichCell).removeClass("correct");
+                }, 400);
+            }
+        }
+        if (isFull() === true) {
+            clearInterval(intervalID);
+        }
+    }
+    firstNewGame();
+});
+    </script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+body{
+    background-color: ghostwhite;
+    color:#103f95;
+    margin:0;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    font-family: "Quicksand",sans-serif;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+.scale{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+.pointer{
+    cursor: pointer;
+}
+
+h1{
+    font-weight: 400;
+    padding-left: 7px;
+}
+
+.blur{
+    -webkit-filter: blur(3px);
+            filter: blur(3px);
+}
+/* START ------------------------------------------------------------ Table style */
+
+table{
+    margin: 20px auto;
+    width: 450px;
+    border-collapse: collapse;
+    text-align: center;
+    border: 1.5px double gray;
+    font-size: 27px;
+    background-color: aliceblue;
+}
+.right{
+    border-right: 1.5px double gray;
+}
+.bottom{
+    border-bottom: 1.5px double gray;
+}
+td{
+    border:1px solid gainsboro;
+    outline: none;
+    width: 50px;
+    height: 50px;
+    color: transparent;
+    text-shadow: 0 0 black;
+}
+td:focus{
+    background-color: #c9e0f5;
+}
+.focused{
+    background-color: #c9e0f5;
+}
+.wrong{
+    background-color:#e01717 !important;
+    opacity: .76;
+}
+.correct{
+    background-color:forestgreen !important;
+    opacity: .85;
+}
+
+/* Table style -------------------------------------------------------------- END */
+
+/* START ------------------------------------------------------------ Controls style */
+
+.difficulty-headline{
+    font-size: 19px;
+    color: #545454;
+    margin-top: 86px;
+    display: inline-block;
+}
+.fas{
+    margin-left:5px;
+    color: gray;
+}
+.fa-minus{
+    display: none;
+}
+#timer{
+    display: inline-block;
+    margin-left: 133px;
+
+}
+.difficulty{
+    margin-left: 15px;
+    text-align: center;
+    display: none;
+}
+.slider{
+    -webkit-appearance:none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 5px;
+    height: 6px;
+    background-color: #0175fda8;
+    outline: none;
+    width: 85%;
+}
+.slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+            appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    background-color: #0175fd;
+}
+::-moz-range-thumb{
+      -moz-appearance: none;
+           appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    background-color: #0175fd;  
+}
+.difficulty span{
+    font-weight: 600;
+}
+.difficulty span:nth-child(1){
+    display: block;
+}
+.margin{
+    margin-right: 148px;
+}
+#numpad{
+    font-size: 60px;
+    text-align: center;
+    font-weight: 100;
+}
+.num{
+    margin:5px;
+    display: inline-block;
+    -webkit-box-shadow: 1px 1px 5px lightgrey;
+            box-shadow: 1px 1px 5px lightgrey;
+    border-radius: 20px;
+}
+.num:hover{
+    -webkit-box-shadow: 2px 2px 5px lightgrey;
+            box-shadow: 2px 2px 5px lightgrey;
+}
+.btn{
+    background-color: ghostwhite;
+    border: none;
+    outline: none;
+    -webkit-box-shadow: 2px 3px 5px lightgrey;
+            box-shadow: 2px 3px 5px lightgrey;
+    border-radius: 10px;
+    font-family: 'Quicksand',sans-serif;
+}
+#instructions-btn{
+    margin-top: 9px;
+    background-color: #2e54a7;
+    color: ghostwhite;
+    font-size: 23px;
+    width: 94%;
+    height: 30px;
+    opacity: .94;
+}
+#instructions-btn:hover{
+    opacity: 1;
+    border: none;
+    -webkit-box-shadow: 2px 3px 5px lightgrey;
+            box-shadow: 2px 3px 5px lightgrey;
+}
+.btn:hover{
+    border:1.5px solid;
+    -webkit-box-shadow: 4px 6px 5px lightgrey;
+            box-shadow: 4px 6px 5px lightgrey;
+}
+#hint{
+    width: 3em;
+}
+.instructions-overlay{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color: #000000ab;
+    z-index: 1;
+    -webkit-filter: blur(0);
+            filter: blur(0);
+    display: none;
+    top: 0 !important;
+}
+.instructions{
+    width: 46%;
+    height: auto;
+    background-color: ghostwhite;
+    margin: auto;
+    margin-top: 5vh;
+    border-radius: 20px;
+    padding: 15px;
+    text-align: justify;
+}
+.instructions h1{
+    margin:0;
+}
+.fa-times-circle{
+    float: right;
+    font-size: .75em;
+    margin-top: 8px;
+}
+.instructions p{
+    font-size: 1.2em;
+    padding: 0 17px;
+    color: black;
+}
+
+/* Numpad style -------------------------------------------------------------- END */
+
+/* START ------------------------------------------------------------ Media query */
+
+@media (pointer:fine){
+    table, .num, .btn, input, .difficulty-headline, .difficulty span {
+        cursor: pointer;
+    }
+}
+@media only screen and (max-width: 800px){
+    .scale{
+        display: block;
+    }
+    table{
+        width: 96%;
+    }
+    td{
+        font-size: 30px;
+    }
+    #numpad{
+        font-size: 8vw;
+        margin-bottom: 6px;
+    }
+    .num{
+        width: 7.9vw;
+        margin: 0;
+    }
+    .first-row{
+        width: 94%;
+    }
+    .buttons{
+        text-align: center;
+    }
+    #hint{
+        width: 42vw;
+    }
+    .btn{
+        font-size: 7vw;
+        margin: 6px;
+        color:#103f95;
+        width: 42vw;
+    }
+    #instructions-btn{
+        font-size: 5vw;
+        width: 87vw;
+        height: auto;
+    }
+    .btn:hover{
+        border:none;
+    }
+    .difficulty{
+        margin-bottom: 15px;
+    }
+    .difficulty-headline{
+        margin-top: 0;
+        font-size: 20px;
+        margin-left: 6vw;
+        font-size: 3.5vw;
+    }
+    #timer{
+        font-size: 3.4vw;
+        float: right;
+        margin-right: 1vw;
+        margin-left: 0;
+    }
+    .margin{
+        margin-right: 64%;
+    }
+    .instructions{
+        width: 85%;
+    }
+}
+@media only screen and (max-width: 470px){
+    td{
+        font-size: 22px;
+    }
+    .instructions h1{
+        font-size: 1.5em;
+    }
+    .fa-times-circle {
+        margin-top: 6px;
+    }
+    .instructions p {
+        font-size: 1em;
+        padding:2px;
+    }
+    .difficulty{
+        font-size: 0.8em;
+    }
+    #timer, .difficulty-headline{
+        font-size: 15px;
+    }
+}
+
+@media only screen and (min-width: 700px){
+    #numpad{
+    font-size: 7vw;
+    }
+    .btn{
+        font-size: 6vw;
+    }
+}
+
+@media only screen and (min-width: 801px){
+    table{
+        margin:20px;
+    }
+    .controls{
+        width: 310px;
+    }
+     #numpad{
+        margin-top: 32px;
+        margin-left: 15px;
+        font-size: 50px;
+    }
+    .num{
+        width: 71px;
+    }
+    .buttons{
+        margin-top: 19px;
+        margin-left: 15px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        -ms-flex-pack: distribute;
+            justify-content: space-around;
+    }
+    .btn{
+        height: 62px;
+        font-size: 31px;
+        color:#103f95;
+    }
+}
+
+@media only screen and (min-width: 1630px){
+    .scale{
+        -webkit-transform: scale(1.5);
+            -ms-transform: scale(1.5);
+                transform: scale(1.5);
+        margin: 144px auto;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 49%;
+    }
+    .instructions{
+        -webkit-transform: scale(1.5);
+            -ms-transform: scale(1.5);
+                transform: scale(1.5);
+        margin-top: 250px;
+    }
+}
+/* Media query -------------------------------------------------------------- END */
+
+/* START ------------------------------------------------------------ Animations */
+
+.light-up {
+  -webkit-animation: light-up .6s;
+          animation: light-up .6s;
+}
+@-webkit-keyframes light-up {
+  0% {
+    background-color: forestgreen   ;
+    opacity: .75;
+  }
+  50%{
+    -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+  }
+  100% {
+    background-color: aliceblue;
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes light-up {
+  0% {
+    background-color: forestgreen   ;
+    opacity: .75;
+  }
+  50%{
+    -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+  }
+  100% {
+    background-color: aliceblue;
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+.intro{
+    -webkit-animation: intro .70s;
+            animation: intro .70s;
+    -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+}
+@-webkit-keyframes intro {
+  0% {
+    opacity: .1;
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes intro {
+  0% {
+    opacity: .1;
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.intro-letter{
+    -webkit-animation: intro-letter .5s;
+            animation: intro-letter .5s;
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+}
+@-webkit-keyframes intro-letter {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(2);
+            transform: scale(2);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes intro-letter {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(2);
+            transform: scale(2);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+/* Animations -------------------------------------------------------------- END */
+</style>
+</body>
+
+</html>
