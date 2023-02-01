@@ -452,24 +452,24 @@ $(document).ready(function () {
     }
 
     //Open and close instructions window. 
-    $("#instructions-btn").click(showRules);
+    $("#instructions-btn2").click(showRules);
     $(".instructions-overlay").click(hideRules);
     function showRules() {
-        $("#instructions-btn").unbind("click");
+        $("#instructions-btn2").unbind("click");
         $(".instructions-overlay").unbind("click");
         $("body").children().addClass("blur");
         $(".instructions-overlay").slideToggle(450, function () {
-            $("#instructions-btn").click(showRules);
+            $("#instructions-btn2").click(showRules);
             $(".instructions-overlay").click(hideRules);
         });
     }
     function hideRules() {
         $(".instructions-overlay").unbind("click");
-        $("#instructions-btn").unbind("click");
+        $("#instructions-btn2").unbind("click");
         $("body").children().removeClass("blur");
         $(".instructions-overlay").slideToggle(450, function () {
             $(".instructions-overlay").click(hideRules);
-            $("#instructions-btn").click(showRules);
+            $("#instructions-btn2").click(showRules);
         });
     }
 
