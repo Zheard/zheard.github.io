@@ -20,7 +20,14 @@
 <script type="text/javascript" src="bootstrap.min.js" ></script>
 <script type="text/javascript" src="jquery-ui.min.js"  ></script>
 <script type="text/javascript" src="tag-it.js"></script>
-
+<!-- Agrega estilos para dispositivos móviles -->
+<style>
+@media only screen and (max-width: 768px) {
+  .panel-heading h4 {
+    font-size: 24px; /* Cambia el tamaño del texto en dispositivos móviles */
+  } #zheard-sopa{font-size: 18px;}
+}
+</style>
 </head>
 <body>
     <style media="print">.ocultar {display:none;}.col-md-3 { width: 25%;float: left;}.col-md-9 {width: 75%;float: left;}
@@ -149,17 +156,6 @@ data-ad-channel="4815113973"
       }
 		$('#solve').click( function() {wordfindgame.solve(gamePuzzle, words);});
 
-	    // Obtener la lista de elementos <li> dentro de la <div> con id "Palabras"
-var listaPalabras = document.querySelectorAll('#Palabras li');
-
-// Iterar sobre los elementos <li> y agregarles números secuenciales
-for (var i = 0; i < listaPalabras.length; i++) {
-    // Crear un nodo de texto con el número secuencial
-    var numero = document.createTextNode(i + 1 + '. ');
-
-    // Insertar el número secuencial al principio de cada elemento <li>
-    listaPalabras[i].insertBefore(numero, listaPalabras[i].childNodes[0]);
-}
 
     </script>
     </div>
