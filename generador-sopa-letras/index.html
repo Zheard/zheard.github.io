@@ -20,7 +20,22 @@
 <script type="text/javascript" src="bootstrap.min.js" ></script>
 <script type="text/javascript" src="jquery-ui.min.js"  ></script>
 <script type="text/javascript" src="tag-it.js"></script>
-
+ <style>
+        /* Estilos opcionales para la impresión */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #zheard-sopa, #zheard-sopa * {
+                visibility: visible;
+            }
+            #zheard-sopa {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    </style>
 
 </head>
 <body>
@@ -28,7 +43,7 @@
     </style>
 
 <div class="container">
-    <div class="row">
+    <div class="row" id="zheard-sopa">
         
         <script type="text/javascript">
             var mytag;
@@ -94,7 +109,8 @@ data-ad-channel="4815113973"
     <div class="panel-body">
     <div class="ocultar">
     <button onclick="Crear();" class="btn btn-success btn-lg"> Crear Juego</button>
-    <button onclick="window.print();" class="btn btn-info btn-lg "> Imprimir</button>
+   <!-- <button onclick="window.print();" class="btn btn-info btn-lg "> Imprimir</button> -->
+	    <button onclick="printDiv();" class="btn btn-info btn-lg">Imprimir</button>
     <button id='solve' class="btn btn-danger btn-lg" >  Resolver</button>
     <!-- <a href="#" class="btn btn-default btn-lg" > Descargar</a>-->
         </div>
@@ -128,7 +144,24 @@ data-ad-channel="4815113973"
 	
 </div>
 
+<script>
+    function printDiv() {
+        // Guardar el contenido de la div en una variable
+        var contenidoDiv = document.getElementById('zheard-sopa').innerHTML;
+        
+        // Abrir una nueva ventana
+        var ventanaImpresion = window.open('', '_blank', 'width=600');
 
+        // Escribir el contenido de la div en la nueva ventana
+        ventanaImpresion.document.write('<html><head><title>Imprimir Div</title></head><body>' + contenidoDiv + '</body></html>');
+
+        // Imprimir la nueva ventana
+        ventanaImpresion.print();
+
+        // Cerrar la nueva ventana después de la impresión
+        ventanaImpresion.close();
+    }
+</script>
     
     
     
