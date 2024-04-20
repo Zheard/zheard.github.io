@@ -22,21 +22,30 @@
 <script type="text/javascript" src="tag-it.js"></script>
 <!-- Agrega estilos para dispositivos móviles -->
 <style>
-	#logo {display: none; }
-@media only screen and (max-width: 480px) {
-.panel-body {font-size: 20px!important;}
-	  body {
-    font-size: 20px !important; /* Cambia el tamaño de fuente del cuerpo del documento */
-  }
-  .panel-heading h4 {
-    font-size: 24px!important; /* Cambia el tamaño del texto en dispositivos móviles */
-  } 
-	#zheard-sopa, #myTags{font-size: 24px!important;}
+/* Estilo general */
+#logo {
+    display: none;
 }
 
-  ul.tagit input[type="text"] {
- background-color: #f5f6f7!important;
-  
+body {
+    font-size: 20px;
+}
+
+.panel-heading h4 {
+    font-size: 24px;
+}
+
+ul.tagit input[type="text"] {
+    background-color: #f5f6f7;
+}
+
+/* Estilo para dispositivos móviles */
+@media only screen and (max-width: 480px) {
+    .panel-body,
+    #zheard-sopa,
+    #myTags {
+        font-size: 20px;
+    }
 }
 @media print {
         #logo {
