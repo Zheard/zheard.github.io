@@ -39,7 +39,10 @@ body {
 ul.tagit input[type="text"] {
     background-color: #f5f6f7;
 }
-
+ul.tagit input[type="text"]::before {
+    content: "Ingrese aqui una palabra"; /* Texto del marcador de posición */
+    font-style: italic; /* Estilo de fuente del marcador de posición */
+}
 /* Estilo para dispositivos móviles */
 @media only screen and (max-width: 480px) {
     .panel-body,
