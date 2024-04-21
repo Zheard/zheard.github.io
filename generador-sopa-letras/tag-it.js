@@ -8,17 +8,7 @@
 * http://aehlke.github.com/tag-it/LICENSE
 *
 * Homepage:
-*   http://aehlke.github.com/tag-it/
-*
-* Authors:
-*   Levy Carneiro Jr.
-*   Martin Rehfeld
-*   Tobias Schmidt
-*   Skylar Challand
-*   Alex Ehlke
-*
-* Maintainer:
-*   Alex Ehlke - Twitter: @aehlke
+*   https://www.zheard.net
 *
 * Dependencies:
 *   jQuery v1.4+
@@ -31,7 +21,7 @@
             allowDuplicates   : false,
             caseSensitive     : true,
             fieldName         : 'tags',
-            placeholderText   : null,   // Sets `placeholder` attr on input field.
+            placeholderText   : 'Escribe una palabra',   // Sets `placeholder` attr on input field.
             readOnly          : false,  // Disables editing.
             removeConfirmation: false,  // Require confirmation to remove tags.
             tagLimit          : null,   // Max number of tags allowed (null for unlimited).
