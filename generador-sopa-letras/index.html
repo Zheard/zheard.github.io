@@ -72,14 +72,24 @@ ul.tagit input[type="text"]::before {
 }
 @media (max-width: 991.98px) {
     .col-md-3, .col-md-9 {
-        width: 100%;
-    /*    float: none; */
+        display: inline;
+        float: none; 
     /*     font-size: 20px; */
     }
 	ul.tagit {font-size: 25px;}
-	#juego {margin: 30px -25px;padding: 20px 8px;text-align:center}
-	
+	#juego {margin: 30px 0px;padding: 20px 8px;text-align:center}
+	#juego .puzzleSquare {}
 }
+@media (max-width: 400px) {
+    .col-md-3, .col-md-9 {
+        display: inline;
+       float: none
+    /*     font-size: 16px; */
+    }
+	ul.tagit {font-size: 20px;}
+	#juego {margin: 20px 0px;padding: 15px 8px;text-align:center}
+	#juego .puzzleSquare {}
+}	
 </style>
 </head>
 <body>
