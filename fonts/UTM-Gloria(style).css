@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'UTM Gloria';
+    src: url('UTMGloria.woff2') format('woff2'),
+        url('UTMGloria.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
