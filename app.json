@@ -1,1 +1,22 @@
-
+{
+  "name": "Blog de Zheard",
+  "description": "Trucos y recursos para diseño grafico y diseño web",
+  "repository": "https://github.com/zheard/zheard.github.io",
+  "env": {
+    "KEY": {
+      "description": "Conexión a base de datos",
+      "required": true
+    }
+  },
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "scripts": {
+    "postdeploy": "npm run migrate"
+  }
+}
