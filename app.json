@@ -5,7 +5,7 @@
   "env": {
     "KEY": {
       "description": "Conexión a base de datos",
-      "required": true
+      "required": false
     }
   },
   "addons": [
